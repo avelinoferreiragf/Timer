@@ -1,0 +1,14 @@
+#timerDisplay {
+	width: 100%;
+	font-size: 30em;
+	text-align: center;
+}
+.warningTime {
+	background-color: #FFDE00;
+	color: #FFFFFF;
+}
+
+.timeOut {
+	background-color: #B80000;
+	color: #FFFFFF;
+}
