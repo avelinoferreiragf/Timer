@@ -3,7 +3,7 @@ var alertTimes = [15, 10, 5, 3, 1];
 var timerId = 0;
 var warningTime = false;
 var MAX_WARNING_TIME = 55;
-function startTimer(duration, display) {
+function startTimer(duration, display, displayContainer) {
     var start = Date.now(),
         diff,
         minutes,
@@ -20,16 +20,16 @@ function startTimer(duration, display) {
         if (seconds == 0 && alertTimes.indexOf(minutes) > -1) {
             audioWarning.play();
             warningTime = true;
-            display.addClass("warningTime");
+            displayContainer.addClass("warningTime");
         }
         if (!warningTime || (seconds > 0 && seconds < MAX_WARNING_TIME)) {
-            display.removeClass("warningTime");
+            displayContainer.removeClass("warningTime");
             warningTime = false;
         }
         if (seconds == 0 && minutes == 0) {
             audioFinish.play();
             clearInterval(timerId);
-            display.addClass("timeOut");
+            displayContainer.addClass("timeOut");
         }
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -51,7 +51,7 @@ $(document).ready(function(){
     $(".btnStart").click(lapStart);
     $(".btnStop").click(resetTimer);
     audioWarning = new Audio("sounds/Store_Door_Chime-Mike_Koenig-570742973.mp3");
-    audioFinish = new Audio("sounds/Alarm Clock-SoundBible.com-437257341.mp3");
+    audioFinish = new Audio("sounds/Alarm.mp3");
 });
 
 var lapStart = function() {
@@ -59,13 +59,14 @@ var lapStart = function() {
     var lapTime = lapTimer.val();
     var duration = 60 * lapTime;
     var display = $("#timerDisplay");
-    display.removeClass("warningTime");
-    display.removeClass("timeOut");
-    resetTimer(display);
-    startTimer(duration, display);
+    var displayContainer = $("#timerDisplayContainer");
+    displayContainer.removeClass("warningTime");
+    displayContainer.removeClass("timeOut");
+    resetTimer(displayContainer);
+    startTimer(duration, display, displayContainer);
 };
 
-var resetTimer = function(display) {
+var resetTimer = function(displayContainer) {
     clearInterval(timerId);
     stopAudio(audioWarning);
     stopAudio(audioFinish);
