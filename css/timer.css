@@ -1,8 +1,16 @@
-#timerDisplay {
+body {
+	margin: 0;
+}
+#timerDisplayContainer{
+	padding: 1em;
 	width: 100%;
-	font-size: 30em;
+}
+
+#timerDisplay {
+	font-size: 28vmax;
 	text-align: center;
 }
+
 .warningTime {
 	background-color: #FFDE00;
 	color: #FFFFFF;
